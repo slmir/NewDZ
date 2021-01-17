@@ -1,0 +1,1 @@
+web: gunicorn dzproject.wsgi --log-file -
