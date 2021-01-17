@@ -1,0 +1,32 @@
+{% extends 'main/base_template.html' %}
+<!--получим данные из словаря по файлу views-->
+{% block title %}
+Подробнее о товаре {{ items.name }}
+{% endblock %}
+
+{% block content %}
+
+    <h1>{{ items.name }}</h1>
+    <h2>Дополнительная информация:</h2>
+    <p>Категория: {{ items.category }}</p>
+    <p>Количество: {{ items.amount }}</p>
+    <p>Дней хранения: {% if items.shelflifeday != ''%} {{ items.shelflifeday }} {% else %} Данные не указаны {% endif %}</p>
+    <p>Описание: {% if items.option != ''%} {{ items.option }} {% else %} Данные не указаны {% endif %}</p>
+    <p>Склад: {{ items.foldid }}</p>
+    <p>Модуль склада: {% if items.module != ''%} {{ items.module }} {% else %} Данные не указаны {% endif %}</p>
+    <p>Секция модуля склада: {% if items.section != ''%} {{ items.section }} {% else %} Данные не указаны {% endif %}</p>
+    <p>Ряд: {% if items.row != ''%} {{ items.row }} {% else %} Данные не указаны {% endif %}</p>
+    <p>Место: {% if items.place != ''%} {{ items.place }} {% else %} Данные не указаны {% endif %}</p>
+
+    <a href= "{% url 'item-delete' items.id %}" class="btn btn-danger">Удалить</a>
+    <a href= "{% url 'item-update' items.id %}" class="btn btn-info">Редактировать</a>
+
+    <a href="{% url 'items_home'%}" class="btn btn-warning">Назад</a>
+
+{% endblock %}
+
+{% block tomain %}
+  <footer class="footer">
+    <p align = "middle" class = "my-0 me-md-auto fw-normal p-2 text-white bg-dark align-items-center"><a href="{% url 'home' %}"><font color="white"><big>Главная</big></font></a></p>
+    </footer>
+{% endblock %}

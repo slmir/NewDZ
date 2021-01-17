@@ -1,0 +1,52 @@
+{% extends 'main/base_template.html' %}
+<!--получим данные из словаря по файлу views-->
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+<fieldset>
+        <h3>Создать запись о новом складе</h3>
+        <a href="{% url 'fold_create_url' %}" class="btn btn-success">Создать</a>
+    </fieldset>
+    <hr>
+<fieldset>
+        <h3>Отчет с полной информацией о складах доступен по кнопке:</h3>
+        <a href="{% url 'folds_list' %}" class="btn btn-info">Открыть отчет</a>
+    </fieldset>
+    <hr>
+
+<h3>Доступная информация о складах:</h3>
+<fieldset>
+{% if warehouses %}
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Название склада</th>
+                <th scope="col"></th>
+
+            </tr>
+          </thead>
+          <tbody>
+
+                {% for element in warehouses %}
+                 <tr>
+                        <th scope="row" > {{ element.name }}</th>
+                        <td><a href="{% url 'fold-detail' element.id %}" class="btn btn-warning">Подробнее</a></td>
+                  </tr>
+                {% endfor %}
+
+          </tbody>
+        </table>
+    {% else %}
+            <p>Данные отсутвуют!</p>
+            {% endif %}
+  </fieldset>
+{% endblock %}
+
+{% block tomain %}
+  <footer class="footer">
+    <p align = "middle" class = "my-0 me-md-auto fw-normal p-2 text-white bg-dark align-items-center"><a href="{% url 'home' %}"><font color="white"><big>Главная</big></font></a></p>
+    </footer>
+{% endblock %}

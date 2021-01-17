@@ -1,0 +1,38 @@
+{% extends 'main/base_template.html' %}
+
+
+{% block title %}
+Удаление записи о складе
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    <h1>Удаление записи о складе.</h1>
+    {% csrf_token %}
+
+    <fieldset>
+        <script>
+            $(function(){
+                $("#toggleP").on("click",function() {
+                $("#hidethis").toggle(this.checked);
+                });
+            });
+        </script>
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="Confirm" id="toggleP" value="a1" checked>Я подтверждаю, что хочу удалить запись<Br>
+        </div>
+        <p id="hidethis">
+            <button type="submit" class="btn btn-success" id="butt" >Удалить</button>
+        </p>
+    </fieldset>
+    <input class="btn btn-warning" value="Назад" onClick="javascript:history.go(-1);"></input>
+
+        <span>{{ error }}</span>
+    </form>
+{% endblock %}
+
+{% block tomain %}
+  <footer class="footer">
+    <p align = "middle" class = "my-0 me-md-auto fw-normal p-2 text-white bg-dark align-items-center"><a href="{% url 'home' %}"><font color="white"><big>Главная</big></font></a></p>
+    </footer>
+{% endblock %}

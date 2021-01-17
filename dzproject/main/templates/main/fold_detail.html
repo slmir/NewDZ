@@ -1,0 +1,26 @@
+{% extends 'main/base_template.html' %}
+<!--получим данные из словаря по файлу views-->
+{% block title %}
+Подробнее о складе {{ folds.FoldName }}
+{% endblock %}
+
+{% block content %}
+
+    <h1>{{ folds.name }}</h1>
+    <h2>Дополнительная информация:</h2>
+    <p>Номер платформы: {{ folds.parknumber }}</p>
+    <p>ФИО ответственного: {% if folds.responsible != ''%} {{ folds.responsible }} {% else %} Данные не указаны {% endif %}</p>
+    <p>Адресс склада: {% if folds.adress != ''%} {{ folds.adress }} {% else %} Данные не указаны {% endif %}</p>
+    <p>ФИО ответственного: {{ folds.square }}</p>
+    <a href= "{% url 'fold-delete' folds.id%}" class="btn btn-danger">Удалить</a>
+    <a href= "{% url 'fold-update' folds.id %}" class="btn btn-info">Редактировать</a>
+
+    <a href="{% url 'folds_home'%}" class="btn btn-warning">Назад</a>
+
+{% endblock %}
+
+{% block tomain %}
+  <footer class="footer">
+    <p align = "middle" class = "my-0 me-md-auto fw-normal p-2 text-white bg-dark align-items-center"><a href="{% url 'home' %}"><font color="white"><big>Главная</big></font></a></p>
+    </footer>
+{% endblock %}
