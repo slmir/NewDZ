@@ -133,3 +133,9 @@ STATICFILES_DIRS = (
 
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
+
+SERVER = os.getenv('SERVER')
+if SERVER == 'production':
+    pass
+if SERVER == 'develoment':
+    pass
