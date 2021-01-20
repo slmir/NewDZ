@@ -140,5 +140,3 @@ if SERVER == 'production':
 if SERVER == 'develoment':
     pass
 
-import django_heroku
-django_heroku.settings(locals())
