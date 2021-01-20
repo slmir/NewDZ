@@ -1,0 +1,1 @@
+"label":Главный,"valueMeb":0,"valueStroi":51000,"valueInstr":0,"valueTech":0,

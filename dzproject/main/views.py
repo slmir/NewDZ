@@ -3,7 +3,8 @@ from .models import *
 from .forms import *
 from django.views.generic import DetailView,UpdateView, DeleteView, View
 from django.http import Http404, HttpResponse,HttpResponseRedirect
-
+from django.shortcuts import render
+import os
 
 
 
@@ -37,6 +38,74 @@ def item_list(request):
 def fold_list(request):
     folds = FoldNewOne.objects.all()
     return render(request, 'main/fold_full_list.html', {'title':"Информация о складах", 'fold': folds})
+
+
+def js_diagram(request):
+    str1 = ''
+    mebcount = 0
+    stroicount = 0
+    instrcount = 0
+    techcount = 0
+    dict1 = {}
+    tmpdict = {}
+    lst1 = []
+    get_items = ItemNewOne.objects.all()
+    get_folds = FoldNewOne.objects.all()
+    for i in get_folds:
+        if (i.get_item_count()) > 0:
+            dict1.update({"label":i.name})
+            print("Для склада:", i.name, i.id)
+            for e in get_items:
+                print(e.get_id(), i.id)
+                if (e.get_id()) == i.id:
+                    if e.category == "Мебель":
+                        mebcount+= e.amount
+                    elif e.category == "Стройматериалы":
+                        stroicount += e.amount
+                    elif e.category == "Инструменты":
+                        instrcount += e.amount
+                    elif e.category == "Техника":
+                        techcount += e.amount
+                    else:
+                        pass
+
+            dict1.update({"valueMeb": mebcount})
+            dict1.update({"valueStroi": stroicount})
+            dict1.update({"valueInstr": instrcount})
+            dict1.update({"valueTech": techcount})
+            lst1.append(get_dict(dict1))
+            mebcount = 0
+            stroicount = 0
+            instrcount = 0
+            techcount = 0
+    print("\nМассив -" , lst1, "\n")
+    return render(request, 'main/js-diagramm.html',{'title':"Сводный отчет",
+                                               'get_item': get_items,'get_fold': get_folds, 'datas':lst1})
+
+
+def get_dict(dict2):
+    new_dict = {}
+    for key,val in dict2.items():
+        new_dict.update({key:val})
+    print("\nВ функции по получению нового словаря - ", new_dict,"\n")
+    return new_dict
+
+    """ print(tmpdict)
+                for key, value in dict1.items():
+                    tmpdict.update({key:value})
+                print(tmpdict)
+                lst1.append(tmpdict)"""
+    """module_dir = os.path.dirname(__file__)  # get current directory
+    file_path = os.path.join(module_dir, 'datas.txt')
+    with open(file_path, 'w') as out:
+        for key,val in dict1.items():
+            out.write('"{}":{},'.format(key,val))
+
+    with open(file_path) as inp:
+        for i in inp.readlines():
+            str1 = '{'+i+'}'
+            print("Строка", str1)
+            lst1.append(str1)"""
 
 
 def third(request):

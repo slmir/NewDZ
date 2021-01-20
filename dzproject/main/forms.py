@@ -4,6 +4,7 @@ from django.forms import ModelForm, TextInput, Textarea, Select
 from django.core.exceptions import ValidationError
 import datetime
 
+
 class NewFoldCreateForm(forms.ModelForm):
     class Meta:
         model = FoldNewOne

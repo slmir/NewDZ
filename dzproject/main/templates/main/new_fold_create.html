@@ -10,7 +10,11 @@
         {% csrf_token %}
         {% for field in form %}
             <div class="form-group">
-                <p>{{ field.label }}: {{ field }}</p>
+                {% if field.label == 'Название склада' %}
+                    <p name="Name">{{ field.label }}: {{ field }}</p>
+                {% else %}
+                    <p>{{ field.label }}: {{ field }}</p>
+                {% endif %}
                 {% if field.errors %}
                     <div class="alert alert-danger">
                         {{ field.errors }}
